@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Dino : MonoBehaviour
 {
-    float moveSpeed = 1f;
-    float moveSpeed2 = 5f;
+    float moveSpeed = 4f;
+    float moveSpeed2 = 10f;
 
     // Update is called once per frame
     void Update()
