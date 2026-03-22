@@ -5,6 +5,7 @@ using UnityEngine;
 public class DinoPosCtrl : MonoBehaviour
 {
     public Transform raptors;
+    public GameObject raptorPrefab;
 
     public float radius = 1f;
     public float ratio = 0.1f;
@@ -19,6 +20,76 @@ public class DinoPosCtrl : MonoBehaviour
         //{
         //    transform.GetChild(i).localPosition = new Vector3(startPosX + (dinogap * i), 0, 0);
         //}
+        
+    }
+
+    public void SetDoorCalc(DoorType doorType, int doorNumber)
+    {
+        if(doorType.Equals(DoorType.Plus))
+        {
+            PlusRaptor(doorNumber);
+        }
+        else if (doorType.Equals(DoorType.Minus))
+        {
+            MinusRaptor(doorNumber);
+        }
+        else if (doorType.Equals(DoorType.Times))
+        {
+            int raptorNum = raptors.childCount * (doorNumber - 1);
+            TimesRaptor(raptorNum);
+        }
+        else if (doorType.Equals(DoorType.Division))
+        {
+            int raptorNum = raptors.childCount - (raptors.childCount / doorNumber);
+            MinusRaptor(raptorNum);
+        }
+    }
+
+    private void PlusRaptor(int number)
+    {
+        for (int i = 0; i < number; i++)
+        {
+            Instantiate(raptorPrefab, raptors);
+        }
+    }
+
+    private void MinusRaptor(int number)
+    {
+        if (number > raptors.childCount)
+        {
+            number = raptors.childCount;
+        }
+
+        int raptorNum = raptors.childCount;
+
+        for (int i = raptorNum - 1; i >= (raptorNum - number); i -- )
+        {
+            Destroy(raptors.GetChild(i).gameObject); //맨 마지막 오브젝트 부터 삭제
+        }
+    }
+
+    private void DivisionRaptor(int number)
+    {
+        if (number > raptors.childCount)
+        {
+            number = raptors.childCount;
+        }
+
+        int raptorNum = raptors.childCount * (number - 1);
+
+        for (int i = raptorNum - 1; i >= (raptorNum - number); i--)
+        {
+            Destroy(raptors.GetChild(i).gameObject); //맨 마지막 오브젝트 부터 삭제
+        }
+    }
+
+
+    private void TimesRaptor(int number)
+    {
+        for (int i = 0; i < number; i++)
+        {
+            Instantiate(raptorPrefab, raptors);
+        }
     }
 
     void SetDinoPos()
