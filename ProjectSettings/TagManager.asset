@@ -6,6 +6,7 @@ TagManager:
   tags:
   - left
   - right
+  - Goal
   layers:
   - Default
   - TransparentFX

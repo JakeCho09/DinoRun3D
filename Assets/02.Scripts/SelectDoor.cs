@@ -54,6 +54,7 @@ public class SelectDoor : MonoBehaviour
             rightText.text = "¡À" + rightDoorNum;
         }
 
+
         if (leftDoorType.Equals(DoorType.Plus))
         {
             leftDoorSpriteRD.color = goodColor;

@@ -7,8 +7,10 @@ public class DinoPosCtrl : MonoBehaviour
     public Transform raptors;
     public GameObject raptorPrefab;
 
-    public float radius = 1f;
-    public float ratio = 0.1f;
+    public int visibleRaptorNum;
+    public float initialRadius = 0f;
+    public float radiusGrowth = 0.12f;
+    public float goldenAngle = 137.508f;
 
     // Update is called once per frame
     void Update()
@@ -68,21 +70,6 @@ public class DinoPosCtrl : MonoBehaviour
         }
     }
 
-    private void DivisionRaptor(int number)
-    {
-        if (number > raptors.childCount)
-        {
-            number = raptors.childCount;
-        }
-
-        int raptorNum = raptors.childCount * (number - 1);
-
-        for (int i = raptorNum - 1; i >= (raptorNum - number); i--)
-        {
-            Destroy(raptors.GetChild(i).gameObject); //맨 마지막 오브젝트 부터 삭제
-        }
-    }
-
 
     private void TimesRaptor(int number)
     {
@@ -96,29 +83,31 @@ public class DinoPosCtrl : MonoBehaviour
     {
         for(int i = 0; i < raptors.childCount; i++)
         {
-            if(i > 8)
+            if(i > visibleRaptorNum - 1)
             {
                 raptors.GetChild(i).gameObject.SetActive(false);
                 continue;
             }
             else
             {
-                if(raptors.childCount < 10)
+                if(i < visibleRaptorNum)
                 {
-                    float angleStep = 360f / (raptors.childCount * ratio);
+                    float currentRadius = initialRadius + (radiusGrowth * i);
 
-                    float angle = i * angleStep;
+                    float angle = i * goldenAngle;
 
                     float angleRad = angle * Mathf.Deg2Rad;
 
-                    float x = Mathf.Cos(angleRad) * radius;
-                    float z = Mathf.Sin(angleRad) * radius;
+                    float x = Mathf.Cos(angle*Mathf.Deg2Rad) * currentRadius;
+                    float z = Mathf.Sin(angleRad*Mathf.Deg2Rad) * currentRadius;
 
                     raptors.GetChild(i).localPosition = new Vector3(x, 0, z);
+                    raptors.GetChild(i).gameObject.SetActive(true);
                 }
             }
 
         }
+        //황금각은 137.508
 
         //float angleStep = 360f / (raptors.childCount * ratio);
 

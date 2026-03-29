@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Dino : MonoBehaviour
 {
+    public static Dino instance;
+
     public Vector3 sphereCenter;
     public float sphereRadius = 0.5f;
 
@@ -12,11 +14,25 @@ public class Dino : MonoBehaviour
     float moveSpeed = 4f;
     float moveSpeed2 = 10f;
 
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
+    }
     // Update is called once per frame
     void Update()
     {
-        DinoMove();
-        DoorCheck();
+        if (GameManager.instance.isGameStart.Equals(true))
+        {
+            DinoMove();
+            DoorCheck();
+        }
     }
 
     private void DoorCheck()
@@ -25,17 +41,26 @@ public class Dino : MonoBehaviour
 
         foreach (Collider doors in hitCollision)
         {
-            Debug.Log("감지한 오브텍트" + doors.gameObject.name);
+            if(doors.CompareTag("Goal"))
+            {
+                Debug.Log("Goal");
+                doors.gameObject.GetComponent<BoxCollider>().enabled = false;
+            }
+            else
+            {
+                Debug.Log("감지한 오브텍트" + doors.gameObject.name);
 
-            int doorNum = doors.gameObject.GetComponent<SelectDoor>().GetDoorNum(transform.position.x);
-            DoorType doorType = doors.gameObject.GetComponent<SelectDoor>().GetDoorType(transform.position.x);
+                int doorNum = doors.gameObject.GetComponent<SelectDoor>().GetDoorNum(transform.position.x);
+                DoorType doorType = doors.gameObject.GetComponent<SelectDoor>().GetDoorType(transform.position.x);
 
-            doors.gameObject.GetComponent<BoxCollider>().enabled = false;
+                doors.gameObject.GetComponent<BoxCollider>().enabled = false;
 
-            dinoPosCtrl.SetDoorCalc(doorType, doorNum);
+                dinoPosCtrl.SetDoorCalc(doorType, doorNum);
+            }
         }
 
     }
+
 
     private void OnDrawGizmos()
     {
