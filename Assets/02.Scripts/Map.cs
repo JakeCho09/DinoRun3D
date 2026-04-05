@@ -6,7 +6,7 @@ public class Map : MonoBehaviour
 {
     public Vector3 mapSize;
 
-    public float GetMapSheet()
+    public float GetMapSize()
     {
         return mapSize.z;
     }

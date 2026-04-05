@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,12 +13,17 @@ public class GameManager : MonoBehaviour
 
     public Slider PB;
 
+    public TextMeshProUGUI nowStage;
+    public TextMeshProUGUI nextStage;
+
     public bool isGameStart;
 
     private void Start()
     {
+        //PlayerPrefs.DeleteKey("Stage");
         Time.timeScale = 0f;
-        PB.value = 0f;
+        nowStage.text = MapManager.instance.GetStage().ToString();
+        nextStage.text = (MapManager.instance.GetStage() + 1).ToString();
         titlep.SetActive(true);
         GP.SetActive(false);
     }
@@ -34,6 +40,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        SetDPB();
+    }
     private void SetDPB()
     {
         if (isGameStart.Equals(false))
@@ -48,6 +58,7 @@ public class GameManager : MonoBehaviour
     public void GameStart()
     {
         Debug.Log("게임 시작");
+        //PlayerPrefs.DeleteKey("Stage");
         isGameStart = true;
         titlep.SetActive(false);
         GP.SetActive(true);

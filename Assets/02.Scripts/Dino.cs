@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Dino : MonoBehaviour
 {
@@ -11,8 +12,8 @@ public class Dino : MonoBehaviour
 
     public DinoPosCtrl dinoPosCtrl;
 
-    float moveSpeed = 4f;
-    float moveSpeed2 = 10f;
+    public float moveSpeed = 4f;
+    public float moveSpeed2 = 10f;
 
     private void Awake()
     {
@@ -44,9 +45,11 @@ public class Dino : MonoBehaviour
             if(doors.CompareTag("Goal"))
             {
                 Debug.Log("Goal");
+                PlayerPrefs.SetInt("Stage", PlayerPrefs.GetInt("Stage") + 1);
                 doors.gameObject.GetComponent<BoxCollider>().enabled = false;
+                SceneManager.LoadScene(0);
             }
-            else
+            else if(doors.gameObject.GetComponent<SelectDoor>() != null)
             {
                 Debug.Log("감지한 오브텍트" + doors.gameObject.name);
 

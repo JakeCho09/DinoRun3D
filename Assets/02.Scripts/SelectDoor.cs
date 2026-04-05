@@ -13,9 +13,6 @@ public enum DoorType
 
 public class SelectDoor : MonoBehaviour
 {
-
-    
-
     public SpriteRenderer rightDoorSpriteRD;
     public SpriteRenderer leftDoorSpriteRD;
     public TextMeshPro rightText;
