@@ -19,5 +19,10 @@ public class DinoCounter : MonoBehaviour
     void Update()
     {
         TextMeshPro.text = DinoCount.childCount.ToString();
+
+        if (DinoCount.childCount <= 0)
+        {
+            this.gameObject.SetActive(false);
+        }
     }
 }

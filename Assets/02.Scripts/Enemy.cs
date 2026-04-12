@@ -10,6 +10,8 @@ public class Enemy : MonoBehaviour
         Run
     }
 
+    [SerializeField] private bool isTargetOn;
+
     public float moveSpeed;
     public float detectRadius;
     private State state;
@@ -41,21 +43,47 @@ public class Enemy : MonoBehaviour
 
     private void DetectDino()
     {
+
+        if (isTargetOn.Equals(true))
+            return;
+
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, detectRadius);
 
         foreach(Collider colls in hitColliders)
         {
-            if(colls.gameObject.GetComponent<Raptor>() != null)
+            Raptor raptor = colls.GetComponent<Raptor>();
+            if (raptor != null && raptor.IsTarget().Equals(false))
             {
-                if (colls.gameObject.GetComponent<Raptor>().IsTarget())
-                    continue;
-                colls.gameObject.GetComponent<Raptor>().SetTarget();
+                Invoke("SetTargetDino", 0.1f);
+                targetRaptor = raptor.transform;
 
-                targetRaptor = colls.gameObject.transform;
-                Debug.Log(targetRaptor);
+                break; // 첫 번째 타겟만 설정하고 루프 중단
 
-                StartGoToDino();
             }
+
+
+            //if(colls.gameObject.GetComponent<Raptor>() != null)
+            //{
+            //    if (colls.gameObject.GetComponent<Raptor>().IsTarget())
+            //        continue;
+            //    colls.gameObject.GetComponent<Raptor>().SetTarget();
+
+            //    targetRaptor = colls.gameObject.transform;
+            //    Debug.Log(targetRaptor);
+
+            //    StartGoToDino();
+            //}
+        }
+    }
+
+    private void SetTargetDino()
+    {
+        if (targetRaptor != null && targetRaptor.GetComponent<Raptor>().IsTarget().Equals(false))
+        {
+            targetRaptor.GetComponent<Raptor>().SetTarget();
+            isTargetOn = true;
+
+            StartGoToDino();
         }
     }
 
@@ -80,6 +108,7 @@ public class Enemy : MonoBehaviour
 
         if(Vector3.Distance(transform.position, targetRaptor.position) < 0.1f)
         {
+            SoundManager.instance.DinoHitPlay();
             Destroy(targetRaptor.gameObject);
             Destroy(this.gameObject);
         }

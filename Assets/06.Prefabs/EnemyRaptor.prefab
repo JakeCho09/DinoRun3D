@@ -3477,7 +3477,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d05fbf619ce0664593bd08373bcf653, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
+  isTargetOn: 0
+  moveSpeed: 20
   detectRadius: 8
 --- !u!1 &7946050581457086613
 GameObject:

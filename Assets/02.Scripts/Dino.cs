@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class Dino : MonoBehaviour
 {
     public static Dino instance;
+    SoundManager instanc;
 
     public Vector3 sphereCenter;
     public float sphereRadius = 0.5f;
@@ -44,13 +45,16 @@ public class Dino : MonoBehaviour
         {
             if(doors.CompareTag("Goal"))
             {
+                SoundManager.instance.PlayClear();
                 Debug.Log("Goal");
                 PlayerPrefs.SetInt("Stage", PlayerPrefs.GetInt("Stage") + 1);
                 doors.gameObject.GetComponent<BoxCollider>().enabled = false;
-                SceneManager.LoadScene(0);
+                GameManager.instance.StageClear();
+                //SceneManager.LoadScene(0);
             }
             else if(doors.gameObject.GetComponent<SelectDoor>() != null)
             {
+                SoundManager.instance.DoorHitPlay();
                 Debug.Log("감지한 오브텍트" + doors.gameObject.name);
 
                 int doorNum = doors.gameObject.GetComponent<SelectDoor>().GetDoorNum(transform.position.x);

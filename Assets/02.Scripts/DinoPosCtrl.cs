@@ -10,11 +10,15 @@ public class DinoPosCtrl : MonoBehaviour
     public int visibleRaptorNum;
     public float initialRadius = 0f;
     public float radiusGrowth = 0.12f;
-    public float goldenAngle = 137.508f;
+    public float goldenAngle = 137.5f;
 
     // Update is called once per frame
     void Update()
     {
+
+        if (GameManager.instance.isGameStart.Equals(false))
+            return;
+
         SetDinoPos();
         //float startPosX = (transform.childCount * -(dinogap / 2)) + (dinogap / 2);
 
@@ -22,6 +26,11 @@ public class DinoPosCtrl : MonoBehaviour
         //{
         //    transform.GetChild(i).localPosition = new Vector3(startPosX + (dinogap * i), 0, 0);
         //}
+
+        if(raptors.childCount <= 0)
+        {
+            GameManager.instance.GameOver();
+        }
         
     }
 
@@ -99,7 +108,7 @@ public class DinoPosCtrl : MonoBehaviour
                     float angleRad = angle * Mathf.Deg2Rad;
 
                     float x = Mathf.Cos(angle*Mathf.Deg2Rad) * currentRadius;
-                    float z = Mathf.Sin(angleRad*Mathf.Deg2Rad) * currentRadius;
+                    float z = Mathf.Sin(angle*Mathf.Deg2Rad) * currentRadius;
 
                     raptors.GetChild(i).localPosition = new Vector3(x, 0, z);
                     raptors.GetChild(i).gameObject.SetActive(true);

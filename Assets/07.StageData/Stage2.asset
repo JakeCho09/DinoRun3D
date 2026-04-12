@@ -10,15 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8736c0734fd39884f8d76a6a90a92bbb, type: 3}
-  m_Name: Stage1
+  m_Name: Stage2
   m_EditorClassIdentifier: 
   maps:
-  - {fileID: 8211186302584995245, guid: 537068c7d205c8744922e264bd4ade9c, type: 3}
-  - {fileID: 5124093730370219203, guid: 941db918166c1484f974cf17b458f7ce, type: 3}
-  - {fileID: 8211186302584995245, guid: 158117a8cfd546d44af82ac7f2c7de73, type: 3}
+  - {fileID: 5124093730370219203, guid: d497a11fa88e6ea44899662411baf616, type: 3}
   - {fileID: 8211186302584995245, guid: 2c795e7338c7c2245a9dab51762bdc5a, type: 3}
   - {fileID: 1237694119628923282, guid: 8846bf13ffde8464e9689043f9e0e26f, type: 3}
-  - {fileID: 1237694119628923282, guid: 56437f99568fa0c498ec4f2f5b165560, type: 3}
   - {fileID: 5124093730370219203, guid: f0fac35d161f19b40a23d75ac025016b, type: 3}
-  - {fileID: 5124093730370219203, guid: d497a11fa88e6ea44899662411baf616, type: 3}
   - {fileID: 1237694119628923282, guid: e288b91b2115fd14199b855315b14c38, type: 3}

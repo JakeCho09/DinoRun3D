@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class GameManager : MonoBehaviour
 
     public GameObject titlep;
     public GameObject GP;
+    public GameObject gameOV;
+    public GameObject gameCl;
 
     public Slider PB;
 
@@ -26,6 +29,8 @@ public class GameManager : MonoBehaviour
         nextStage.text = (MapManager.instance.GetStage() + 1).ToString();
         titlep.SetActive(true);
         GP.SetActive(false);
+        gameOV.SetActive(false);
+        gameCl.SetActive(false);
     }
 
     private void Awake()
@@ -63,5 +68,27 @@ public class GameManager : MonoBehaviour
         titlep.SetActive(false);
         GP.SetActive(true);
         Time.timeScale = 1f;
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void GameOver()
+    {
+        SoundManager.instance.Die();
+        isGameStart = false;
+        Time.timeScale = 0f;
+        GP.SetActive(false);
+        gameOV.SetActive(true);
+    }
+
+    public void StageClear()
+    {
+        isGameStart = false;
+        Time.timeScale = 0f;
+        GP.SetActive(false);
+        gameCl.SetActive(true);
     }
 }
